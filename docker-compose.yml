@@ -1,0 +1,36 @@
+version: '3'
+services:
+  app:
+    image: syaifuddinzuhri/docker-app:latest
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    env_file: .env
+    depends_on:
+      - cache
+    networks:
+      - app-network
+
+  web_server:
+    image: syaifuddinzuhri/docker-app-web_server:latest
+    container_name: web_server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8002:80"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  cache:
+    image: redis:alpine
+    container_name: cache
+    restart: unless-stopped
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
