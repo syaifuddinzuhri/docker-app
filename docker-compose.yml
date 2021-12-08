@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: syaifuddinzuhri/docker-app:latest
+    image: syaifuddinzuhri/docker-laravel-app:latest
     container_name: app
     restart: unless-stopped
     tty: true
@@ -12,12 +12,12 @@ services:
       - app-network
 
   web_server:
-    image: syaifuddinzuhri/docker-app-web_server:latest
+    image: syaifuddinzuhri/docker-laravel-app-web_server:latest
     container_name: web_server
     restart: unless-stopped
     tty: true
     ports:
-      - "8002:80"
+      - "8003:80"
     depends_on:
       - app
     networks:
